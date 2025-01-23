@@ -46,7 +46,7 @@ def hw02_2(q2_pdf):
         keep_separator=True
     )
 
-    chunks = splitter.split_text(full_text)
+    chunks = splitter.split_documents(pages)
 
     # debug usage
     # count = 0
@@ -60,9 +60,9 @@ def hw02_2(q2_pdf):
     return len(chunks)
 
 if __name__ == '__main__':
-    result = hw02_1(q1_pdf)
-    print("---------------------- hw1 result ----------------------")
-    print(result)
+    # result = hw02_1(q1_pdf)
+    # print("---------------------- hw1 result ----------------------")
+    # print(result)
     # print(f"檔名: {result.metadata['source']}")
     # print(f"頁數: {result.metadata['page'] + 1}")
     # print(f"內文: {result.page_content}")
