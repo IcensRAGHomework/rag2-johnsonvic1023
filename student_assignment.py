@@ -1,7 +1,6 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import (CharacterTextSplitter,
                                       RecursiveCharacterTextSplitter)
-import re
 
 q1_pdf = "OpenSourceLicenses.pdf"
 q2_pdf = "勞動基準法.pdf"
@@ -10,7 +9,7 @@ def hw02_1(q1_pdf):
     loader = PyPDFLoader(q1_pdf)
     pages = loader.load()
 
-    print(len(pages))
+    # print(len(pages))
 
     text_splitter = CharacterTextSplitter(
         separator="\n",
@@ -42,11 +41,12 @@ def hw02_2(q2_pdf):
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=1,
         chunk_overlap=0,
-        separators=["第 "] ,
+        separators=[r"第.+(?:條 *|章 .*)(?:\n|-)"],
+        is_separator_regex=True,
         keep_separator=True
     )
 
-    chunks = splitter.split_documents(pages)
+    chunks = splitter.split_text(full_text)
 
     # debug usage
     # count = 0
@@ -59,14 +59,14 @@ def hw02_2(q2_pdf):
 
     return len(chunks)
 
-if __name__ == '__main__':
-    # result = hw02_1(q1_pdf)
-    # print("---------------------- hw1 result ----------------------")
-    # print(result)
-    # print(f"檔名: {result.metadata['source']}")
-    # print(f"頁數: {result.metadata['page'] + 1}")
-    # print(f"內文: {result.page_content}")
+# if __name__ == '__main__':
+#     result = hw02_1(q1_pdf)
+#     print("---------------------- hw1 result ----------------------")
+#     print(result)
+#     print(f"檔名: {result.metadata['source']}")
+#     print(f"頁數: {result.metadata['page'] + 1}")
+#     print(f"內文: {result.page_content}")
 
-    result = hw02_2(q2_pdf)
-    print("---------------------- hw2 result ----------------------")
-    print(result)
+#     result = hw02_2(q2_pdf)
+#     print("---------------------- hw2 result ----------------------")
+#     print(result)
